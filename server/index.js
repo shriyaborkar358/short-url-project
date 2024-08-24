@@ -3,7 +3,8 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 dotenv.config();
 import cors from "cors";
-import { postLink, getSlugRedirect } from "./controllers/links.js";
+import { postLink, getSlugRedirect, getLinks } from "./controllers/link.js";
+import { postLogin, postSignup } from "./controllers/user.js";
 
 const app = express();
 
@@ -14,9 +15,9 @@ const PORT = process.env.PORT || 5000;
 
 const connectDB = async () => {
   const conn = await mongoose.connect(process.env.MONGO_URL);
-if(conn){
-    console.log(`MongoDB Connected ✅`)
-}
+  if (conn) {
+    console.log(`MongoDB Connected ✅`);
+  }
 };
 connectDB();
 
@@ -24,11 +25,16 @@ app.get("/health", (req, res) => {
   res.json({
     success: true,
     message: "All good..",
-  })
+  });
 });
 
 app.post("/link", postLink);
-app.get("/:slug", getSlugRedirect)
+app.get("/links", getLinks);
+app.get("/:slug", getSlugRedirect);
+
+app.post("/login", postLogin)
+app.post("/signup", postSignup)
+
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);

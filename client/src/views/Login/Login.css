@@ -1,0 +1,20 @@
+.login-form{
+    width: 600px;
+    height: auto;
+    box-shadow: 0 0 10px white;
+}
+
+.login-input {
+    display: block;
+  }
+
+.button{
+    background-color: rgb(216, 214, 216);
+    font-weight: 30px;
+}
+
+.button:hover{
+    background-color: rgb(35, 16, 44);
+    color: white;
+}
+

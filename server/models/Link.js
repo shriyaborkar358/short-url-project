@@ -1,4 +1,4 @@
-import { Schema, model } from "mongoose";
+import { Schema,  model } from "mongoose";
 
 const linkSchema = new Schema({
   target: {
@@ -17,6 +17,11 @@ const linkSchema = new Schema({
   views: {
     type: Number,
     default:0
+  },
+  user:{
+  type: Schema.Types.ObjectId,
+  ref : "User",
+  required : true
   }
 },
 {
