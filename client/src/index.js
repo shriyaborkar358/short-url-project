@@ -6,6 +6,7 @@ import Home from "./views/Home/Home"
 import Navbar from "./components/Navbar/Navbar";
 import Login from "./views/Login/Login"
 import Signup from "./views/Signup/Signup"
+import Showlinks from "./views/Showlinks/Showlinks";
 
 const router = createBrowserRouter ([
   {
@@ -23,6 +24,10 @@ const router = createBrowserRouter ([
   {
     path: "/signup",
     element: <Signup/>
+  },
+  {
+    path: "/showlinks",
+    element: <Showlinks/>
   }
 ])
 

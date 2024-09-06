@@ -1,0 +1,31 @@
+.links-container{
+   display: block;
+   margin: 20px auto;
+}
+
+.showall-link-container{
+    height: 80vh;
+    width: 98%;
+    margin: 0 auto;
+    overflow-y:scroll ;
+    border-radius: 10px;
+   }
+
+
+.showalllinks-title{
+   text-align: center;
+   color: #2d96b9;
+}
+
+@media screen and (min-width: 300px) and (max-width: 400px) {
+   .showall-link-container {
+     height: 70vh;
+     width: 95%;
+     border-radius: 8px;
+   }
+ 
+   .showalllinks-title {
+     font-size: 18px;
+     padding: 10px;
+   }
+}

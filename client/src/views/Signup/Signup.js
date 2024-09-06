@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import "./../Login/Login.css";
 import Navbar from "./../../components/Navbar/Navbar"
 import { Link } from "react-router-dom";
+import toast from "react-hot-toast";
 
 function Signup() {
   const [fullName, setFullName] = useState("");
@@ -20,6 +21,18 @@ function Signup() {
         dob: dob,
       }
     );
+
+    if(response.data.success){
+      toast.success(response.data.message)
+
+      setFullName ('')
+      setEmail('')
+      setPassword('')
+      setDob('')
+    }
+    else{
+      toast.error(response.data.message)
+    }
   };
 
   return (
@@ -29,7 +42,7 @@ function Signup() {
         <h1 className=" text-center mt-2 text-light">User Registration</h1>
         <input
           type="text"
-          className="login-input my-4 w-100 p-2 d-block m-4 m-auto"
+          className="login-input my-4 w-100 p-2 d-block m-4 m-auto rounded-2"
           placeholder="Enter Fullname"
           value={fullName}
           onChange={(e) => {
@@ -39,7 +52,7 @@ function Signup() {
 
         <input
           type="email"
-          className="login-input my-4 w-100 p-2 d-block m-4 m-auto"
+          className="login-input my-4 w-100 p-2 d-block m-4 m-auto rounded-2"
           placeholder="Enter email"
           value={email}
           onChange={(e) => {
@@ -49,17 +62,17 @@ function Signup() {
 
         <input
           type="password"
-          className="login-input my-4 w-100 p-2 d-block m-4 m-auto"
+          className="login-input my-4 w-100 p-2 d-block m-4 m-auto rounded-2"
           placeholder="Enter password"
           value={password}
-          onCanPlay={(e) => {
+          onChange={(e) => {
             setPassword(e.target.value);
           }}
         />
 
         <input
           type="date"
-          className="login-input my-4 w-100 p-2 d-block m-4 m-auto"
+          className="login-input my-4 w-100 p-2 d-block m-4 m-auto rounded-2"
           placeholder="Enter DOB"
           value={dob}
           onChange={(e) => {
@@ -73,15 +86,15 @@ function Signup() {
         >
           Register
         </button>
-        </form>
+      </form>
 
-        <Link
+      <Link
         to="/login"
-        className="go-to-link fs-4 d-block text-center my-20 mx-auto text-light"
+        className="go-to-link fs-4 d-block text-center mx-auto text-light"
       >
         Already have an Account ? Signup
       </Link>
-      
+
     </div>
   );
 }

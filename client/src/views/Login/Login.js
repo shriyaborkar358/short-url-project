@@ -6,33 +6,31 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 
 function Login() {
+  const [user, setUser] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const loginNow = async () => {
-    const response = await axios.post(
-      `${process.env.REACT_APP_API_URL}/login`,
+    const response = await axios.post(`${process.env.REACT_APP_API_URL}/login`,
       {
         email: email,
-        password: password,
+        password:password,
       }
     );
-
     if (response.data.success) {
       toast.success(response.data.message);
+      
+      localStorage.setItem('currentUser', JSON.stringify(response.data.data));
 
-      localStorage.setItem("currentUser", JSON.stringify(response.data.data));
-
-      toast.loading("Redirecting To dashboard");
-
+      toast.loading("Redirecting to dashboard");
       setTimeout(() => {
-        window.location.href = "/";
-      }, 2000);
+        window.location.href = '/showlinks'
+      }, 2000)
+
     } else {
       toast.error(response.data.message);
     }
   };
-
   return (
     
     <div>
@@ -46,7 +44,7 @@ function Login() {
           type="email"
           placeholder="Enter email"
           value={email}
-          className="login-input my-5 w-100 p-2 d-block m-4 m-auto"
+          className="login-input my-5 w-100 p-2 d-block m-4 m-auto rounded-2"
           onChange={(e) => {
             setEmail(e.target.value);
           }}
@@ -56,7 +54,7 @@ function Login() {
           type="password"
           placeholder="Enter password"
           value={password}
-          className="login-input my-4 w-100 p-2 d-block m-4 m-auto"
+          className="login-input my-4 w-100 p-2 d-block m-4 m-auto rounded-2"
           onChange={(e) => {
             setPassword(e.target.value);
           }}
@@ -73,7 +71,7 @@ function Login() {
 
       <Link
         to="/signup"
-        className="go-to-link fs-4 d-block text-center my-20 mx-auto text-light"
+        className="go-to-link fs-4 d-block text-center mx-auto text-light"
       >
         Don't have an Account ? Login
       </Link>

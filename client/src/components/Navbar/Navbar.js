@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./Navbar.css";
 import LinkImg from "./link-icon.png";
 import { Link } from "react-router-dom";
-import toast, {Toaster} from "react-hot-toast";
+import toast, { Toaster } from "react-hot-toast";
 import MenuIcon from "./menu.png";
 
 function Navbar() {
@@ -41,8 +41,13 @@ function Navbar() {
       />
 
       <div className={`search-item-container ${menu ? "active" : ""}`}>
+
+      <Link to="/" className="search-item" onClick={toggleMenu}>
+      Home
+        </Link>
+
         <Link to="/" className="search-item" onClick={toggleMenu}>
-          Home
+          Add Links
         </Link>
 
         <Link to="/showlinks" className="search-item" onClick={toggleMenu}>
@@ -50,7 +55,6 @@ function Navbar() {
         </Link>
         {user.fullName ? (
           <>
-            {/* <span className="search-item-username">{user.fullName}</span> */}
             <span className="search-item-logout" onClick={logouthandel}>
               Logout
             </span>
@@ -61,7 +65,7 @@ function Navbar() {
           </Link>
         )}
       </div>
-      <Toaster/>
+      <Toaster />
     </div>
   );
 }

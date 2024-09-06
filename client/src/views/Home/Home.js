@@ -1,82 +1,68 @@
 import React, { useEffect, useState } from "react";
 import "./Home.css";
+import "./../Login/Login.css";
 import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
-import LinkCard from "../../components/LinkCard/LinkCard";
+import Navbar from "../../components/Navbar/Navbar";
 
 function Home() {
-  // const [title, settitle] = useState("")
-  // const [target, setTarget] = useState("")
-  // const [slug, setSlug] = useState("")
 
   const [linkData, setLinkData] = useState({
     title: "",
     target: "",
     slug: "",
+    user: null
   });
 
-  const [user, setUser] = useState("")
-  const [links, setLinks] = useState([]);
-
-  useEffect(()=>{
-    const currentUser = JSON.parse(localStorage.getItem('currentUser'))
-
-    if(currentUser){
-      setUser(currentUser)
-    }
-
-    if(!currentUser){
-      window.location.href = '/login'
-    }
-  }, [])
-
-  const loadLinks = async () =>{
-    if(!user._id){
-      return
-    }
-    toast.loading('Loading links...')
-
-    const response = await axios.get(`${process.env.REACT_APP_API_URL}/links?userId=${user._id}`)
-
-    const allLinks = response.data.data
-    toast.dismiss()
-
-    setLinks(allLinks)
-  }
-
-  useEffect(()=>{
-    loadLinks()
-  }, [user])
-
-
   const shortenURL = async () => {
-    const response = await axios.post(
-      `${process.env.REACT_APP_API_URL}/link`,
-      linkData
-    );
+    const response = await axios.post(`${process.env.REACT_APP_API_URL}/link`, linkData);
+
+    try{
+
     if (response.data.success) {
-      toast.success("Link Shorten Successfully");
+      toast.success("Link shorten successfully");
+
       setLinkData({
         title: "",
         target: "",
         slug: "",
+        user: null
       });
+      setTimeout(()=>{
+        window.location.href ='/showlinks'
+      } , 3000)
     } else {
-      toast.error("response.data.message");
+      toast.error(response.data.message);
     }
+  }catch(e){
+    toast.error(`Failed to shorten link: ${e.message}`);
+  }
   };
 
+  useEffect(()=>{
+    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    if(currentUser){
+    setLinkData({...linkData,user:currentUser._id})
+    }
+    else{
+    setTimeout(()=>{
+      window.location.href="/login"
+    },2000)}
+  },[])
+
   return (
-    <div>
-      <h1 className="heading-heading  text-center">Create Long URL to Short </h1>
-      <p className="para-heading text-center "> {user.fullName} Don't waste time typing long URL's</p>
+    <div className="main-container">
+      <Navbar />
+      <h1 className="home-heading text-center mt-4">
+      Make your links manageable, with just a click.{" "}
+      </h1>
 
       <div className="links-base-container mt-3">
-        <form className="link-forms">
+        <form className="login-form d-block m-0 m-auto mt-5  rounded-2 p-3 px-5 ">
           <input
             type="text"
             placeholder="Title"
-            className="link-input"
+            className="login-input my-5 w-100 p-2 d-block  m-auto rounded-2"
             value={linkData.title}
             onChange={(e) => {
               setLinkData({
@@ -89,7 +75,7 @@ function Home() {
           <input
             type="text"
             placeholder="Target URL"
-            className="link-input"
+            className="login-input my-5 w-100 p-2 d-block  m-auto rounded-2"
             value={linkData.target}
             onChange={(e) => {
               setLinkData({
@@ -102,7 +88,7 @@ function Home() {
           <input
             type="text"
             placeholder="Slug"
-            className="link-input"
+            className="login-input my-5 w-100 p-2 d-block  m-auto rounded-2"
             value={linkData.slug}
             onChange={(e) => {
               setLinkData({
@@ -112,32 +98,14 @@ function Home() {
             }}
           />
 
-          <button className="link-btn" type="button" onClick={shortenURL}>
+          <button
+            className="button px-5 py-2 rounded-2 d-block m-4 my-4 m-auto shadow-lg border-0"
+            type="button"
+            onClick={shortenURL}
+          >
             Shorten
           </button>
         </form>
-
-        <div className="links-container">
-          <h2>All Links</h2>
-
-          <div className="all-links-container">
-            {links.map((link) => {
-              const { _id, title, target, slug, views, createdAt } = link;
-
-              return (
-                <LinkCard
-                  key={_id}
-                  _id={_id}
-                  title={title}
-                  target={target}
-                  slug={slug}
-                  views={views}
-                  createdAt={createdAt}
-                />
-              );
-            })}
-          </div>
-        </div>
       </div>
       <Toaster />
     </div>
