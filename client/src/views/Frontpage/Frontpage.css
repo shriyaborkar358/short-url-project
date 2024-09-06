@@ -1,0 +1,43 @@
+.h-96{
+    height: 500px;
+    width: 500px;
+}
+
+@media screen and (min-width: 340px) and (max-width:500px) {
+    .home-container{
+        flex-wrap: wrap;
+        margin: 0;
+        padding: 0;
+    }
+
+    .wallet-img-container{
+        display: block;
+        margin: 0 auto;
+    }
+
+    .h-96{
+        height: 300px;
+        width: 300px;
+    }
+
+    .wallet-img{
+        display: flex;
+        margin: 0px auto; 
+    }
+
+    .home-info{
+        font-size: 5px;
+        text-align: justify;
+    }
+
+    .home-text{
+       font-size: 15px; 
+    }
+
+    .btn{
+        position: fixed;
+        bottom: 10px;
+        right: 50px;
+        margin: 0;
+    }
+}

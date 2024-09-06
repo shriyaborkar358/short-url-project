@@ -30,7 +30,7 @@ function Home() {
       });
       setTimeout(()=>{
         window.location.href ='/showlinks'
-      } , 3000)
+      } , 1000)
     } else {
       toast.error(response.data.message);
     }
@@ -46,7 +46,7 @@ function Home() {
     }
     else{
     setTimeout(()=>{
-      window.location.href="/login"
+      window.location.href="/home"
     },2000)}
   },[])
 

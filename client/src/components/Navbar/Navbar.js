@@ -29,7 +29,7 @@ function Navbar() {
   return (
     <div className="navbar-main-container">
       <div className="logo-container">
-        <img src={LinkImg} className="logo-icon" />
+        <img src={LinkImg} className="logo-icon" alt="LinkImage" />
         <span className="log-name">Shortify </span>
       </div>
 
@@ -42,8 +42,8 @@ function Navbar() {
 
       <div className={`search-item-container ${menu ? "active" : ""}`}>
 
-      <Link to="/" className="search-item" onClick={toggleMenu}>
-      Home
+        <Link to="/home" className="search-item" onClick={toggleMenu}>
+          Home
         </Link>
 
         <Link to="/" className="search-item" onClick={toggleMenu}>
